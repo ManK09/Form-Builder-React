@@ -1,4 +1,4 @@
-import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm} from './componentTypes'
+import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm, ChangeFormName} from './componentTypes'
 
 export const saveData = (objectDetails) =>{
     return{
@@ -49,6 +49,13 @@ export const deleteForm=(objectDetails)=>{
         type:DeleteForm,
         payload:objectDetails
         }
+}
+
+export const changeName=(objectDetails)=>{
+    return{
+        type:ChangeFormName,
+        payload:objectDetails
+    }
 }
 
 export const fetchComponents =()=>{

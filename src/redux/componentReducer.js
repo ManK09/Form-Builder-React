@@ -1,5 +1,5 @@
 import arrayMove from 'array-move'
-import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm} from './componentTypes'
+import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm, ChangeFormName} from './componentTypes'
 import { nanoid } from 'nanoid'
 
 
@@ -85,10 +85,22 @@ const componentReducer=(state=initialState,action)=>{
             return obj                      //****Igonre the commented written thing, we will delete  the same way,update method 
                                            //is changed*** 
         }
-        // case DeleteForm:{
-        //     c
-        // }
-
+        case DeleteForm:{
+            const index=action.payload.id
+            const obj={...state}
+            const arr=[...obj.data]
+            arr.splice(index,1)
+            obj.data=arr
+            return obj 
+        }
+        case ChangeFormName:{
+            const index=action.payload.id
+            const obj={...state}
+            const arr=[...obj.data]
+            arr[index].name=action.payload.name
+            obj.data=arr
+            return obj
+        }
         case TakefromLocal:{
             //console.log('action.payload',action.payload)
             const obj={...state}

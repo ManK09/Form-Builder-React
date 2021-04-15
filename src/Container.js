@@ -51,6 +51,7 @@ const Container = ()=>{
 
 
   const storedata=useSelector(state => state.componentReducer.selectedformdata.data)
+  const temp=useSelector(state => state.componentReducer.data)
   
   console.log('localdata is',storedata)
 
@@ -128,8 +129,12 @@ const Container = ()=>{
         const obj={
           id:key
         }
-        const str=JSON.stringify(obj)
-        window.localStorage.setItem('currkey',str)
+
+        const str=JSON.stringify(temp)
+        window.localStorage.removeItem('entiredata')
+        window.localStorage.setItem('entiredata',str)
+        // const str=JSON.stringify(obj)
+        // window.localStorage.setItem('currkey',str)
 
         // const str=JSON.stringify(storedata)
         // //console.log("string",str)

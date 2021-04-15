@@ -26,20 +26,20 @@ export default function HomePage() {
 
     const data = useSelector(state  => state.componentReducer.data)
 
-    // useEffect(()=>{
-    //     const strx=window.localStorage.getItem('entiredata')
-    //     console.log('strx hello is',strx)
-    //     if(strx!==null)
-    //     {
-    //       const x=JSON.parse(strx)
-    //       //console.log("sunna x  is this",x)
-    //       dispatch(entirelocalData(x))
-    //       //console.log('x is',x.data)
+    useEffect(()=>{
+        const strx=window.localStorage.getItem('entiredata')
+        console.log('strx hello is',strx)
+        if(strx!==null)
+        {
+          const x=JSON.parse(strx)
+          //console.log("sunna x  is this",x)
+          dispatch(entirelocalData(x))
+          //console.log('x is',x.data)
     
-    //       //console.log('hey')
-    //     }
-    //     //const x=JSON.parse(str)
-    //   },[])
+          //console.log('hey')
+        }
+        //const x=JSON.parse(str)
+      },[])
 
     const handleClick=()=>{
         //console.log('eeyaa')
@@ -62,7 +62,10 @@ export default function HomePage() {
 
     const [open,setOpen] = useState(false);
 
-    const handleClickOpen = () => {
+    const [x,setX]=useState(0)
+
+    const handleClickOpen = (index) => {
+        setX(index)
         setOpen(true);
       };
 
@@ -93,6 +96,7 @@ export default function HomePage() {
     //console.log("string",str)
     window.localStorage.setItem('entiredata',str)  
    }
+   
 
     return (
         <div style={{...style}}>
@@ -109,7 +113,7 @@ export default function HomePage() {
                 <List style={{...opacity}}
                 itemLayout="horizontal"
                 size="large"
-                //header={<div>Header</div>}   //ask a  question why ()=>{handlehato(index)} worked but not directly {handlehatoa(index)}
+                //header={<div>Header</div>}   //ask a question why ()=>{handlehato(index)} worked but not directly {handlehatoa(index)}
                 //footer={<div>Footer</div>}
                 bordered
                 dataSource={data}
@@ -117,7 +121,7 @@ export default function HomePage() {
                     actions={[
                             <Button size='small' type='secondary'
                             style={{background:'#4CAF50', borderColor:'#4CAF50', color:'white', float:'left'}}
-                            onClick={handleClickOpen}
+                            onClick={()=>handleClickOpen(index)}
                             >
                                 Change Name
                             </Button>,
@@ -128,7 +132,7 @@ export default function HomePage() {
                                 Delete
                             </Button>,
                             <Modal visible={open}
-                                onOk={handleClickOpen}
+                                onOk={handleCancel}
                                 onCancel={handleCancel}
                                 // footer={[
                                 // <Button onClick={handleCancel} type="primary">
@@ -138,7 +142,7 @@ export default function HomePage() {
                                 <Form.Item label="Label">
                                     <Input value={fieldlabel} placeholder='type new name'
                                         onChange={handleChangelabel} style={{width:"250px"}}/>
-                                     <Button onClick={()=>handleClose(index)} type="primary" 
+                                     <Button onClick={()=>handleClose(x)} type="primary" 
                                      style={{background:'#4CAF50', borderColor:'#4CAF50', color:'white'}}>
                                     Save
                                     </Button>

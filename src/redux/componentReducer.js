@@ -158,10 +158,10 @@ const componentReducer=(state=initialState,action)=>{
         case SortArray:{
             //console.log('aalll',action.payload)
             const obj={...state}
-            const a=[...obj.selectedformdata]
+            const a=[...obj.selectedformdata.data]
             //console.log('a is',a,action.payload.oldIdx,action.payload.newIdx, typeof action.payload.oldIdx)
             const arr=arrayMove(a,action.payload.oldIdx,action.payload.newIdx)
-            obj.selectedformdata=arr
+            obj.selectedformdata.data=arr
             return obj
         }
         case AddNewForm:{

@@ -6,7 +6,6 @@ import { Button } from 'antd';
 import {SortableElement} from 'react-sortable-hoc';
 import {DeleteOutlined} from '@ant-design/icons';
 
-
 const SortableItem = SortableElement(Card)
 
 const style={
@@ -16,7 +15,9 @@ const style={
 const Display = () =>{
 
     const dispatch=useDispatch()
-    const data = useSelector(state  => state.componentReducer.selectedformdata)
+    const data = useSelector(state  => state.componentReducer.selectedformdata.data)
+
+
 
     const handleRemove = (index) =>{
         const data={

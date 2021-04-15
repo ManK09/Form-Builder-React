@@ -5,13 +5,14 @@ import DropArea from './DropArea'
 import {useSelector} from 'react-redux'
 import DisplayCheckBox from './DisplayComponents/DisplayCheckBox'
 import DisplayRadioButton from './DisplayComponents/DisplayRadioButton'
-import {changePosition, localData} from './redux/componentActions'
+import {changePosition, entirelocalData, localData, selectForm, updateFormData} from './redux/componentActions'
 import {useDispatch} from 'react-redux'
 import DisplayDropDown from './DisplayComponents/DisplayDropDown';
 import DisplayLineBreak from './DisplayComponents/DisplayLineBreak';
 import DisplayHorizontalLine from './DisplayComponents/DisplayHorizontalLine';
 import {SortableContainer} from 'react-sortable-hoc';
 import './Container.css'
+import {useParams} from 'react-router-dom'
 
 
 import 'antd/dist/antd.css';
@@ -45,29 +46,51 @@ const SortableList = SortableContainer(DropArea);
 
 
 const Container = ()=>{
+  const {key}=useParams();
+  //console.log('params container',key)
 
 
-  const storedata=useSelector(state => state.componentReducer.selectedformdata)
-  //console.log('localdata is',storedata)
+  const storedata=useSelector(state => state.componentReducer.selectedformdata.data)
+  
+  console.log('localdata is',storedata)
 
   //const data=localdata.data
 
   const dispatch= useDispatch()
 
-  useEffect(()=>{
-    const strx=window.localStorage.getItem('selectedformdata')
-    //console.log('strx is',strx)
-    if(strx!==null)
-    {
-      const x=JSON.parse(strx)
-      //console.log("sunna x  is this",x)
-      dispatch(localData(x))
-      //console.log('x is',x.data)
+  // useEffect(()=>{
+  //   const strx=window.localStorage.getItem('selectedformdata')
+  //   //console.log('strx is',strx)
+  //   if(strx!==null)
+  //   {
+  //     const x=JSON.parse(strx)
+  //     //console.log("sunna x  is this",x)
+  //     dispatch(localData(x))
+  //     //console.log('x is',x.data)
 
-      //console.log('hey')
-    }
-    //const x=JSON.parse(str)
-  },[])
+  //     //console.log('hey')
+  //   }
+  //   //const x=JSON.parse(str)
+  // },[])
+
+
+
+  // useEffect(()=>{
+
+  //   console.log('arreeee baaapre')
+  //   const strx=window.localStorage.getItem('currkey')
+  //   console.log('strx is',strx)
+  //   if(strx!==null)
+  //   {
+  //     const x=JSON.parse(strx)
+  //     //console.log("sunna x  is this",x)
+  //     dispatch(selectForm(x))
+  //     //console.log('x is',x.data)
+
+  //     //console.log('hey')
+  //   }
+  //   //const x=JSON.parse(str)
+  // },[])
 
 
     const [boxes] = useState([
@@ -96,10 +119,23 @@ const Container = ()=>{
 
       const handleSave=()=>{
 
+        const tempobj={
+          id:key,
+          data:storedata
+        }
+        dispatch(updateFormData(tempobj))
+      
+        const obj={
+          id:key
+        }
+        const str=JSON.stringify(obj)
+        window.localStorage.setItem('currkey',str)
+
+        // const str=JSON.stringify(storedata)
+        // //console.log("string",str)
+        // window.localStorage.setItem('selectedformdata',str)
+
         //console.log("hooho",localdata)
-        const str=JSON.stringify(storedata)
-        //console.log("string",str)
-        window.localStorage.setItem('selectedformdata',str)
         //const x=JSON.parse(str)
         //console.log('x is',x)
         //console.log('arr is',x.data)

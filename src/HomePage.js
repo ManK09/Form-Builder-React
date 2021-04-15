@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import 'antd/dist/antd.css';
 import { List, Modal,Form,Input, Divider,Button } from 'antd';
 import {useSelector, useDispatch} from 'react-redux'
-import {PlusCircleFilled,MinusCircleFilled } from '@ant-design/icons';
+import {PlusCircleFilled, SaveOutlined } from '@ant-design/icons';
 import { nanoid } from 'nanoid'
-import { addNewForm, changeName, deleteForm } from './redux/componentActions';
+import { addNewForm, changeName, deleteForm, entirelocalData } from './redux/componentActions';
 
 import {Link} from 'react-router-dom'
 
@@ -19,9 +19,27 @@ const opacity={
 export default function HomePage() {
 
 
+    
+
+
     const dispatch=useDispatch()
 
     const data = useSelector(state  => state.componentReducer.data)
+
+    // useEffect(()=>{
+    //     const strx=window.localStorage.getItem('entiredata')
+    //     console.log('strx hello is',strx)
+    //     if(strx!==null)
+    //     {
+    //       const x=JSON.parse(strx)
+    //       //console.log("sunna x  is this",x)
+    //       dispatch(entirelocalData(x))
+    //       //console.log('x is',x.data)
+    
+    //       //console.log('hey')
+    //     }
+    //     //const x=JSON.parse(str)
+    //   },[])
 
     const handleClick=()=>{
         //console.log('eeyaa')
@@ -33,8 +51,9 @@ export default function HomePage() {
         }
         dispatch(addNewForm(obj))
     }
-    const handlehatao=(index)=>{
-        console.log("hihaa",index)
+
+    const handleDelete=(index)=>{
+        //console.log("hihaa",index)
         const obj={
             id:index
         }
@@ -52,12 +71,13 @@ export default function HomePage() {
       }
     
       const handleClose = (index) => {
+          console.log('index ji',index)
           const obj={
               id:index,
               name:fieldlabel
           }
           dispatch(changeName(obj))
-        //setOpen(false);
+        setOpen(false);
       };
 
       const [fieldlabel,setFieldlabel]=useState('')
@@ -67,6 +87,13 @@ export default function HomePage() {
 
         setFieldlabel(value)
    }
+
+   const handleSaveForm=()=>{
+    const str=JSON.stringify(data)
+    //console.log("string",str)
+    window.localStorage.setItem('entiredata',str)  
+   }
+
     return (
         <div style={{...style}}>
             <Divider orientation="left"><h1>Your Forms</h1></Divider>
@@ -74,6 +101,11 @@ export default function HomePage() {
             <Button onClick={handleClick}
                 icon={<PlusCircleFilled />} size='large' type="primary"
             >Add New Option</Button>
+            <Button onClick={handleSaveForm}
+                icon={<SaveOutlined />} size='large' type="secondary"
+                style={{background:'#f50057', borderColor:'#f50057', color:'white'}}
+            >Save Forms</Button>
+
                 <List style={{...opacity}}
                 itemLayout="horizontal"
                 size="large"
@@ -91,17 +123,18 @@ export default function HomePage() {
                             </Button>,
                             <Button size='small' type='secondary'
                             style={{background:'#f50057', borderColor:'#f50057', color:'white', float:'left'}}
-                            onClick={()=>{handlehatao(index)}}
+                            onClick={()=>{handleDelete(index)}}
                             >
                                 Delete
                             </Button>,
                             <Modal visible={open}
                                 onOk={handleClickOpen}
                                 onCancel={handleCancel}
-                                footer={[
-                                <Button onClick={handleCancel} type="primary">
-                                    Done
-                                </Button>]}>
+                                // footer={[
+                                // <Button onClick={handleCancel} type="primary">
+                                //     Done
+                                // </Button>]}
+                                >
                                 <Form.Item label="Label">
                                     <Input value={fieldlabel} placeholder='type new name'
                                         onChange={handleChangelabel} style={{width:"250px"}}/>
@@ -113,7 +146,8 @@ export default function HomePage() {
                             </Modal>
                     ]}
                   >
-                    <Link to='/:id'>{item.name}</Link>
+                      {/* {console.log(item.key)} */}
+                    <Link to={`/${item.key}`}>{item.name}</Link>
                     </List.Item>}
                 />
         </div>

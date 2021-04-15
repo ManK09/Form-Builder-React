@@ -1,6 +1,5 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import Itemtype from './Itemtype'
 
 const style = {
   border: "1px dashed gray",

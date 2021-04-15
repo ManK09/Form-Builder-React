@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import {saveData,deleteData} from './redux/componentActions'
 import { nanoid } from 'nanoid'
 import Display from './Display'
+import {useParams} from 'react-router-dom'
 
 const style = {
   display:"flex",
@@ -29,6 +30,7 @@ const style = {
 
 const DropArea = () => {
 
+
     const dispatch=useDispatch()
 
 
@@ -39,7 +41,7 @@ const DropArea = () => {
 
     //const [content,setContent]=useState([])
 
-    const data = useSelector(state  => state.componentReducer.selectedformdata)
+    const data = useSelector(state  => state.componentReducer.selectedformdata.data)
 
     //console.log(data)
 
@@ -100,25 +102,3 @@ const DropArea = () => {
 
 export default DropArea
 
-
-// const display =() =>{
-
-    //     return(
-    //         data.map((item,index)=>{
-    //             // {console.log('index is',index)}
-    //             // {console.log('item is',item)}
-    //             return(
-    //                 <div>
-    //                     <SortableItem item={item} index={index} key={item.id}/>
-    //                     {/* <Card item={item} index={index}/> */}
-    //                     <br />
-    //                      <br />
-    //                     {<Button variant="contained" color="secondary" style={{width:"50px", height:"30px", float:"right"}} 
-    //                     onClick={()=>{handleRemove(index)}}>
-    //                     Delete
-    //                     </Button>}
-    //                 </div>
-    //             )
-    //         })
-    //     )
-    // }

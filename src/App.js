@@ -17,9 +17,9 @@ const App = () => {    //app se  I'll call Homepage, on home page I'll call dumm
       <Router>
         <Switch>
           <Route path='/' exact component={HomePage} />
-          <Route path='/:id' component={CallingPage} />
+          <Route path='/:key' component={CallingPage} />
                 {/* <HomePage /> */}
-        </Switch>
+         </Switch>
       </Router>
       {/* <DndProvider backend={ HTML5Backend } >
         <Container/>

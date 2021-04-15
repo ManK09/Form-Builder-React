@@ -1,4 +1,7 @@
-import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm, ChangeFormName} from './componentTypes'
+import {Save,Update,Delete,TakefromLocal,SortArray,AddNewForm,DeleteForm, ChangeFormName, SelectSelectedFormdata,
+        TakeEntireDataFromLocal,
+        UpdateForm,
+        CleanSelectedFormData} from './componentTypes'
 
 export const saveData = (objectDetails) =>{
     return{
@@ -16,6 +19,18 @@ export const changeData = (objectDetails) =>{  //here objectDetails should conta
     }
 }
 
+export const updateFormData=(objectDetails)=>{
+    return{
+        type:UpdateForm,
+        payload:objectDetails
+    }
+}
+export const clearSelectedForm=(objectDetails)=>{
+    return{
+        type:CleanSelectedFormData,
+        payload:objectDetails
+    }
+}
 export const deleteData= (objectDetails)=>{ //here objectDetails should contain an index of the object in the array to be deleted
     return{
         type:Delete,
@@ -26,6 +41,13 @@ export const deleteData= (objectDetails)=>{ //here objectDetails should contain 
 export const localData=(objectArray)=>{
     return{
         type:TakefromLocal,
+        payload:objectArray
+    }
+}
+
+export const entirelocalData=(objectArray)=>{
+    return{
+        type:TakeEntireDataFromLocal,
         payload:objectArray
     }
 }
@@ -51,6 +73,7 @@ export const deleteForm=(objectDetails)=>{
         }
 }
 
+
 export const changeName=(objectDetails)=>{
     return{
         type:ChangeFormName,
@@ -58,12 +81,21 @@ export const changeName=(objectDetails)=>{
     }
 }
 
-export const fetchComponents =()=>{
-    return (dispatch) =>{
-        const str=window.localStorage.getItem('data')
-        const x=JSON.parse(str)
+export const selectForm=(objectDetails)=>{
+    //console.log('hiii',objectDetails)
+    return{
+        type:SelectSelectedFormdata,
+        payload:objectDetails
     }
 }
+
+// export const fetchComponents =()=>{
+//     return (dispatch) =>{
+//         const str=window.localStorage.getItem('data')
+//         const x=JSON.parse(str)
+//     }
+// }
+
 
 
 export default saveData
